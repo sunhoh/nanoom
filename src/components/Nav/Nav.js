@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import SearchModal from './SearchModal';
 
 function Nav() {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
+  const [isSelectSearch, setIsSelectSearch] = useState(true);
 
   return (
     <Container>
       <Inner>
         <Logo>Nanoom로고</Logo>
         <Gnb>
-          <Search>
-            <i className="fas fa-search" />
+          <Search
+            onClick={() => {
+              setIsSelectSearch(isSelectSearch => !isSelectSearch);
+            }}
+          >
+            {isSelectSearch ? (
+              <i isSelectSearch={isSelectSearch} className="fas fa-search" />
+            ) : (
+              <i isSelectSearch={isSelectSearch} className="fas fa-times" />
+            )}
           </Search>
           <Login
             onClick={() => {
@@ -24,29 +34,31 @@ function Nav() {
       <Modal isClickModal={toggle}>
         <li className="kakao">카카오톡으로 로그인</li>
       </Modal>
+      <SearchModal isSelectSearch={isSelectSearch} />
     </Container>
   );
 }
 
 export default Nav;
 
-const Container = styled.div``;
-const Inner = styled.div`
+const Container = styled.div`
   position: sticky;
   top: 0px;
   left: 0px;
   right: 0px;
+  background-color: rgba(255, 255, 255, 0.114);
+  backdrop-filter: blur(5px);
+`;
+
+const Inner = styled.div`
   display: flex;
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  padding: 0px 2rem;
+  padding: 0px 10rem;
   height: 6.9375rem;
   transition: all 700ms ease 0s;
-  background-color: rgba(255, 255, 255, 0.114);
-  backdrop-filter: blur(5px);
-  /* border: 1px solid black; */
 `;
 
 const Logo = styled.div`
@@ -63,7 +75,7 @@ const Gnb = styled.div`
 
 const Search = styled.div`
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
 `;
 
 const Login = styled.div`
