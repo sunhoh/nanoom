@@ -32,9 +32,7 @@ function Nav() {
         </Gnb>
       </Inner>
       <Modal isClickModal={toggle}>
-        <div className="kakao">
-          <Login />
-        </div>
+        <Login />
       </Modal>
       <SearchModal isSelectSearch={isSelectSearch} />
     </Container>
@@ -92,18 +90,11 @@ const LoginButton = styled.div`
 const Modal = styled.div`
   position: absolute;
   right: 0;
-  margin-right: 2rem;
+  margin-right: 4rem;
   padding: 2rem;
   border-radius: 10px;
   background: #fefefe;
   box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%);
 
   ${props => props.isClickModal && `display:none`};
-
-  .kakao {
-    padding: 15px;
-    background: #fae100;
-    border-radius: 10px;
-    cursor: pointer;
-  }
 `;
