@@ -22,17 +22,19 @@ function Nav() {
               <i isSelectSearch={isSelectSearch} className="fas fa-times" />
             )}
           </Search>
-          <Login
+          <LoginButton
             onClick={() => {
               setToggle(prev => !prev);
             }}
           >
             로그인
-          </Login>
+          </LoginButton>
         </Gnb>
       </Inner>
       <Modal isClickModal={toggle}>
-        <li className="kakao">카카오톡으로 로그인</li>
+        <div className="kakao">
+          <Login />
+        </div>
       </Modal>
       <SearchModal isSelectSearch={isSelectSearch} />
     </Container>
@@ -78,7 +80,7 @@ const Search = styled.div`
   font-size: 25px;
 `;
 
-const Login = styled.div`
+const LoginButton = styled.div`
   padding: 8px;
   margin-left: 15px;
   border-radius: 20px;
@@ -87,7 +89,7 @@ const Login = styled.div`
   cursor: pointer;
 `;
 
-const Modal = styled.ul`
+const Modal = styled.div`
   position: absolute;
   right: 0;
   margin-right: 2rem;
