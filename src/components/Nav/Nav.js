@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import SearchModal from './SearchModal';
 import Login from '../../pages/Login/Login';
 
 function Nav() {
   const [toggle, setToggle] = useState(true);
+  const [isSelectSearch, setIsSelectSearch] = useState(true);
 
   return (
     <Container>
       <Inner>
         <Logo>Nanoom로고</Logo>
         <Gnb>
-          <Search>
-            <i className="fas fa-search" />
+          <Search
+            onClick={() => {
+              setIsSelectSearch(isSelectSearch => !isSelectSearch);
+            }}
+          >
+            {isSelectSearch ? (
+              <i isSelectSearch={isSelectSearch} className="fas fa-search" />
+            ) : (
+              <i isSelectSearch={isSelectSearch} className="fas fa-times" />
+            )}
           </Search>
           <LoginButton
             onClick={() => {
@@ -23,33 +33,33 @@ function Nav() {
         </Gnb>
       </Inner>
       <Modal isClickModal={toggle}>
-        <div className="kakao">
-          <Login />
-        </div>
+        <Login />
       </Modal>
+      <SearchModal isSelectSearch={isSelectSearch} />
     </Container>
   );
 }
 
 export default Nav;
 
-const Container = styled.div``;
-const Inner = styled.div`
+const Container = styled.div`
   position: sticky;
   top: 0px;
   left: 0px;
   right: 0px;
+  background-color: rgba(255, 255, 255, 0.114);
+  backdrop-filter: blur(5px);
+`;
+
+const Inner = styled.div`
   display: flex;
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  padding: 0px 2rem;
+  padding: 0px 10rem;
   height: 6.9375rem;
   transition: all 700ms ease 0s;
-  background-color: rgba(255, 255, 255, 0.114);
-  backdrop-filter: blur(5px);
-  /* border: 1px solid black; */
 `;
 
 const Logo = styled.div`
@@ -66,7 +76,7 @@ const Gnb = styled.div`
 
 const Search = styled.div`
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
 `;
 
 const LoginButton = styled.div`
@@ -81,18 +91,11 @@ const LoginButton = styled.div`
 const Modal = styled.div`
   position: absolute;
   right: 0;
-  margin-right: 2rem;
+  margin-right: 4rem;
   padding: 2rem;
   border-radius: 10px;
   background: #fefefe;
   box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%);
 
   ${props => props.isClickModal && `display:none`};
-
-  .kakao {
-    padding: 15px;
-    background: #fae100;
-    border-radius: 10px;
-    cursor: pointer;
-  }
 `;
