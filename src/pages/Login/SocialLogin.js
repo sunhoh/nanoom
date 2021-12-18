@@ -10,9 +10,8 @@ const KakaoLogin = () => {
     success: authObj => {
       fetch('http:localhost:3000', {
         method: 'POST',
-      })
-        .then(res => res.json())
-        .then(res => console.log('카카오 쇼셜 로그인'));
+      }).then(res => res.json());
+      // .then(res => console.log('카카오 쇼셜 로그인'));
     },
   });
 };

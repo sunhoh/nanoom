@@ -29,7 +29,7 @@ const Inner = styled.div`
 
 const SearchBar = styled.form`
   display: flex;
-  align-items: center;
+  align-items: center;git 
   background: #fff;
   padding: 1rem;
   border-radius: 50px;
