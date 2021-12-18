@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import SearchModal from './SearchModal';
-import Login from '../../pages/Login/Login';
 
 function Nav() {
   const [toggle, setToggle] = useState(true);
