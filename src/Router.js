@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav/Nav';
-import Main from './pages/Main/Main';
-import Login from './pages/Login/Login';
+import Home from './pages/home/Home';
+import BoardList from './pages/boardList/BoardList';
+import SignIn from './pages/signIn/SignIn';
+import SignUp from './pages/signUp/SignUp';
 
 function Router() {
   return (
     <BrowserRouter>
       <Nav />
       <Routes>
-        <Route exact={true} path="/" element={<Main />} />
-        <Route path="/login" element={<Login />} />
+        {/* <Route
+          exact={true}
+          path="/"
+          render={(props) => <Main  {...props} />}
+        /> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/boardlist" element={<BoardList />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
     </BrowserRouter>
   );

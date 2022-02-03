@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
+import 'antd/dist/antd.css';
 import Router from './Router';
 import theme from './styles/theme';
 
