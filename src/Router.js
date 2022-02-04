@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import { firebaseInstance } from './FirebaseAuth';
 import Nav from './components/Nav/Nav';
 import Home from './pages/home/Home';
 import Main from './pages/Main/Main';

@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { Form, Input, Button } from 'antd';
-import { authService } from '../../FirebaseAuth';
+import { authService } from '../../Firebase';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+  const navigation = useNavigate();
+
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email('올바른 이메일 형식이 아닙니다!')
@@ -21,19 +23,15 @@ const SignUp = () => {
   });
 
   const submit = async values => {
-    const { email, password, username } = values;
+    const { email, password } = values;
     const data = await authService
-      .createUserWithEmailAndPassword(email, password, username)
-      .then(userCredential => {
-        // Signed in
-        let user = userCredential.user;
-        // ...
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        alert('good');
+        navigation('/signin');
       })
       .catch(error => {
-        console.log('error');
-        // let errorCode = error.code;
-        // let errorMessage = error.message;
-        // ..
+        alert('error');
       });
   };
 
@@ -94,7 +92,7 @@ const SignUp = () => {
               </Form.Item>
               <Form.Item>
                 <Button type="primary" htmlType="submit">
-                  Submit
+                  회원가입
                 </Button>
               </Form.Item>
             </Form>
