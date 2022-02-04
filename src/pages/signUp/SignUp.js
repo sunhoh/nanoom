@@ -1,31 +1,40 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { Form, Input, Button } from 'antd';
+import { authService } from '../../FirebaseAuth';
 
-const SignUn = () => {
+const SignUp = () => {
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email('올바른 이메일 형식이 아닙니다!')
       .required('이메일을 입력하세요'),
     username: Yup.string().required('이름을 입력하세요!'),
-    password1: Yup.string()
+    password: Yup.string()
       .max(15, '비밀번호는 최대 15자리까지입니다.')
       .required('패스워드를 입력하세요!'),
     password2: Yup.string()
-      .oneOf([Yup.ref('password1'), null], '비밀번호가 일치하지 않습니다')
+      .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지 않습니다')
       .required('패스워드를 다시 입력하세요!'),
   });
 
-  // console.log('@@@', Object.entries(validationSchema.fields));
-
-  const submit = e => {
-    // const allCheck = e => {
-    //   Object.entries(validationSchema.fields).ever(list => list === false);
-    // };
-
-    sessionStorage.setItem('info', e.target.getAttribute('email'));
+  const submit = async values => {
+    const { email, password, username } = values;
+    const data = await authService
+      .createUserWithEmailAndPassword(email, password, username)
+      .then(userCredential => {
+        // Signed in
+        let user = userCredential.user;
+        // ...
+      })
+      .catch(error => {
+        console.log('error');
+        // let errorCode = error.code;
+        // let errorMessage = error.message;
+        // ..
+      });
   };
 
   return (
@@ -34,10 +43,11 @@ const SignUn = () => {
         initialValues={{
           email: '',
           username: '',
-          password1: '',
+          password: '',
           password2: '',
         }}
         validationSchema={validationSchema}
+        onSubmit={submit}
       >
         {({ handleChange, handleSubmit, values }) => (
           <Wrapper>
@@ -64,12 +74,12 @@ const SignUn = () => {
               </Form.Item>
               <Form.Item className="input-form" label="비밀번호">
                 <Input.Password
-                  value={values.password1}
-                  name="password1"
+                  value={values.password}
+                  name="password"
                   onChange={handleChange}
                 />
                 <div className="error-message">
-                  <ErrorMessage name="password1" />
+                  <ErrorMessage name="password" />
                 </div>
               </Form.Item>
               <Form.Item className="input-form" label="비밀번호 확인">
@@ -95,7 +105,7 @@ const SignUn = () => {
   );
 };
 
-export default SignUn;
+export default SignUp;
 
 const Container = styled.div``;
 

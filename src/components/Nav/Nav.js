@@ -12,7 +12,6 @@ function Nav() {
         <Menu
           style={{ backgroundColor: '#001529', color: '#fff', border: '0' }}
           mode="horizontal"
-          // selectedKeys={[menu]}
         >
           <>
             <Menu.Item
