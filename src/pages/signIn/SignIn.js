@@ -38,11 +38,16 @@ const SignIn = () => {
       });
   };
 
-  const SignInGoogle = e => {
+  const SignInGoogle = values => {
     const provider = new firebaseInstance.auth.GoogleAuthProvider();
-    authService.signInWithPopup(provider);
+    authService.signInWithPopup(provider).then(() => {
+      alert('로그인 성공');
+      navigation('/');
+      localStorage.setItem('token', 'google');
+    });
   };
 
+  // 기간 지나서 안뜸 일단 내비둠
   const { Kakao } = window;
 
   const SignInKakao = e => {
@@ -126,7 +131,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid black; */
 
   .input-form {
     width: 400px;

@@ -12,7 +12,7 @@ function Nav() {
   useEffect(() => {
     if (localStorage.token) {
       setIsAuth(true);
-      console.log(isAuth);
+      // console.log(isAuth);
     } else {
       setIsAuth(false);
     }
@@ -32,6 +32,7 @@ function Nav() {
         >
           <>
             <Menu.Item
+              ref={ref}
               key="/"
               onClick={() => {
                 navigation('/');
