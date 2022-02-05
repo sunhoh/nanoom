@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { Form, Input, Button } from 'antd';
 import { authService } from '../../Firebase';
+import { firebaseInstance } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const navigation = useNavigate();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -18,9 +24,9 @@ const SignIn = () => {
       .required('비밀번호를 입력하세요!'),
   });
 
-  const submit = async (values, e) => {
+  const submit = async values => {
     const { email, password } = values;
-    const userInfo = await authService
+    await authService
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         alert('로그인 성공');
@@ -30,6 +36,26 @@ const SignIn = () => {
       .catch(error => {
         alert('error');
       });
+  };
+
+  const SignInGoogle = e => {
+    const provider = new firebaseInstance.auth.GoogleAuthProvider();
+    authService.signInWithPopup(provider);
+  };
+
+  const { Kakao } = window;
+
+  const SignInKakao = e => {
+    Kakao.init(process.env.REACT_APP_KAKAO_RESTAPI_KEY);
+    Kakao.Auth.login({
+      scope: 'profile_nickname,account_email,gender ',
+      success: authObj => {
+        fetch('http:localhost:3000', {
+          method: 'POST',
+        }).then(res => res.json());
+        // .then(res => console.log('카카오 쇼셜 로그인'));
+      },
+    });
   };
 
   return (
@@ -42,12 +68,12 @@ const SignIn = () => {
         validationSchema={validationSchema}
         onSubmit={submit}
       >
-        {({ handleClick, handleChange, handleSubmit, values }) => (
+        {({ handleChange, handleSubmit, values }) => (
           <Wrapper>
-            {/* onSubmit -> onFinish 바뀜 */}
             <Form layout="vertical" autoComplete="off" onFinish={handleSubmit}>
               <Form.Item className="input-form" label="Email">
                 <Input
+                  ref={inputRef}
                   name="email"
                   value={values.email}
                   onChange={handleChange}
@@ -72,6 +98,18 @@ const SignIn = () => {
                 </Button>
               </Form.Item>
             </Form>
+            <SocialLogin>
+              <img
+                alt="구글 로고"
+                src="/images/Google.png"
+                onClick={SignInGoogle}
+              />
+              <img
+                alt="카카오 로고"
+                src="/images/kakao.png"
+                onClick={SignInKakao}
+              />
+            </SocialLogin>
           </Wrapper>
         )}
       </Formik>
@@ -88,6 +126,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* border: 1px solid black; */
 
   .input-form {
     width: 400px;
@@ -95,5 +134,26 @@ const Wrapper = styled.div`
     .error-message {
       color: blue;
     }
+  }
+`;
+
+const SocialLogin = styled.div`
+  display: flex;
+  width: 400px;
+  height: 150px;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    margin-left: 10px;
+    width: 50%;
+    height: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 6%);
+    cursor: pointer;
+  }
+  img:nth-child(1) {
+    width: 40%;
+    height: 45%;
   }
 `;

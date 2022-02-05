@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
@@ -8,6 +8,11 @@ import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const navigation = useNavigate();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -24,7 +29,7 @@ const SignUp = () => {
 
   const submit = async values => {
     const { email, password } = values;
-    const data = await authService
+    await authService
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         alert('회원가입 성공');
@@ -52,6 +57,7 @@ const SignUp = () => {
             <Form layout="vertical" autoComplete="off" onFinish={handleSubmit}>
               <Form.Item className="input-form" label="이메일">
                 <Input
+                  ref={inputRef}
                   value={values.email}
                   name="email"
                   onChange={handleChange}
