@@ -27,7 +27,7 @@ const SignUp = () => {
     const data = await authService
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        alert('good');
+        alert('회원가입 성공');
         navigation('/signin');
       })
       .catch(error => {

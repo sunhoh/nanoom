@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const navigation = useNavigate();
-  const [user, setUser] = useState(false);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -19,32 +18,19 @@ const SignIn = () => {
       .required('비밀번호를 입력하세요!'),
   });
 
-  const submit = async values => {
+  const submit = async (values, e) => {
     const { email, password } = values;
-    const data = await authService
+    const userInfo = await authService
       .signInWithEmailAndPassword(email, password)
-      .then(user => {
-        alert('good');
+      .then(() => {
+        alert('로그인 성공');
         navigation('/');
+        localStorage.setItem('token', values.email);
       })
       .catch(error => {
-        alert(
-          `로그인에 실패하였습니다!
-          아이디와 패스워드를 확인해주세요!`
-        );
+        alert('error');
       });
   };
-
-  useEffect(() => {
-    authService.onAuthStateChanged(user => {
-      if (user) {
-        console.log('dasdsa');
-        setUser(true);
-      } else {
-        setUser(false);
-      }
-    });
-  }, [user]);
 
   return (
     <Container>
@@ -56,9 +42,10 @@ const SignIn = () => {
         validationSchema={validationSchema}
         onSubmit={submit}
       >
-        {({ handleChange, handleSubmit, values }) => (
+        {({ handleClick, handleChange, handleSubmit, values }) => (
           <Wrapper>
-            <Form layout="vertical">
+            {/* onSubmit -> onFinish 바뀜 */}
+            <Form layout="vertical" autoComplete="off" onFinish={handleSubmit}>
               <Form.Item className="input-form" label="Email">
                 <Input
                   name="email"

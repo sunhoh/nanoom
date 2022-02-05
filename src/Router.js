@@ -17,7 +17,7 @@ function Router() {
           path="/"
           render={(props) => <Main  {...props} />}
         /> */}
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Home />} />
         <Route path="/boardlist" element={<BoardList />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
