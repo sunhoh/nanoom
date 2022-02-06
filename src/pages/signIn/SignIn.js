@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
@@ -6,10 +6,13 @@ import { Form, Input, Button } from 'antd';
 import { authService } from '../../Firebase';
 import { firebaseInstance } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
+import { setToken } from '../../redux/auth';
 
 const SignIn = props => {
   const navigation = useNavigate();
   const inputRef = useRef();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -31,6 +34,7 @@ const SignIn = props => {
       .then(() => {
         alert('로그인 성공');
         navigation('/');
+        // dispatch(setToken());
         localStorage.setItem('token', values.email);
         props.setIsAuth(true);
       })
