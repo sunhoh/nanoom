@@ -7,7 +7,7 @@ import { authService } from '../../Firebase';
 import { firebaseInstance } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
 
-const SignIn = () => {
+const SignIn = props => {
   const navigation = useNavigate();
   const inputRef = useRef();
 
@@ -32,6 +32,7 @@ const SignIn = () => {
         alert('로그인 성공');
         navigation('/');
         localStorage.setItem('token', values.email);
+        props.setIsAuth(true);
       })
       .catch(error => {
         alert('error');

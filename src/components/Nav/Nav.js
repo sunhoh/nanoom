@@ -3,23 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 const { Header } = Layout;
 
-function Nav() {
+const Nav = props => {
   const navigation = useNavigate();
   const ref = useRef();
-  const [isAuth, setIsAuth] = useState(false);
-
-  // console.log(localStorage.token);
-  useEffect(() => {
-    if (localStorage.token) {
-      setIsAuth(true);
-      // console.log(isAuth);
-    } else {
-      setIsAuth(false);
-    }
-  }, [isAuth]);
 
   const logout = () => {
-    setIsAuth(false);
+    props.setIsAuth(false);
     localStorage.removeItem('token');
   };
 
@@ -49,7 +38,7 @@ function Nav() {
               게시판
             </Menu.Item>
 
-            {isAuth ? (
+            {props.isAuth ? (
               <Menu.Item
                 key="logout"
                 onClick={() => {
@@ -84,6 +73,6 @@ function Nav() {
       </Header>
     </Layout>
   );
-}
+};
 
 export default Nav;

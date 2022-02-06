@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Home = () => {
+const Home = props => {
   return <Container>Home</Container>;
 };
 

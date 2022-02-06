@@ -6,7 +6,7 @@ import { Form, Input, Button } from 'antd';
 import { authService } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
 
-const SignUp = () => {
+const SignUp = props => {
   const navigation = useNavigate();
   const inputRef = useRef();
 
