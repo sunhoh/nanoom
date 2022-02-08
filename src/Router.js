@@ -10,7 +10,7 @@ function Router() {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.token) setIsAuth(false);
+    if (!sessionStorage.token) setIsAuth(false);
   }, [isAuth]);
 
   return (

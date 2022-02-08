@@ -9,7 +9,7 @@ const Nav = props => {
 
   const logout = () => {
     props.setIsAuth(false);
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   };
 
   return (
@@ -37,7 +37,6 @@ const Nav = props => {
             >
               게시판
             </Menu.Item>
-
             {props.isAuth ? (
               <Menu.Item
                 key="logout"

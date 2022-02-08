@@ -6,13 +6,13 @@ import { Form, Input, Button } from 'antd';
 import { authService } from '../../Firebase';
 import { firebaseInstance } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setToken } from '../../redux/auth';
 
 const SignIn = props => {
   const navigation = useNavigate();
   const inputRef = useRef();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -34,8 +34,8 @@ const SignIn = props => {
       .then(() => {
         alert('로그인 성공');
         navigation('/');
-        // dispatch(setToken());
-        localStorage.setItem('token', values.email);
+        const token = sessionStorage.setItem('token', values.email);
+        dispatch(setToken(token));
         props.setIsAuth(true);
       })
       .catch(error => {
@@ -47,8 +47,9 @@ const SignIn = props => {
     const provider = new firebaseInstance.auth.GoogleAuthProvider();
     authService.signInWithPopup(provider).then(() => {
       alert('로그인 성공');
+      sessionStorage.setItem('token', 'google');
       navigation('/');
-      localStorage.setItem('token', 'google');
+      props.setIsAuth(true);
     });
   };
 
