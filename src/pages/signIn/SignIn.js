@@ -37,11 +37,7 @@ const SignIn = props => {
         const myData = { email: values.email };
         const token = sessionStorage.setItem('token', JSON.stringify(myData));
         dispatch(setToken(token));
-        console.log(dispatch(setToken(token)));
         props.setIsAuth(true);
-
-        console.log('@@', props.setIsAuth(true));
-        console.log('props', props.isAuth);
       })
       .catch(error => {
         alert('error');

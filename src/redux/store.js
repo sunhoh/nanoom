@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 import rootReducer from './rootReducer';
 import { persistReducer } from 'redux-persist';
 // local storage
-import storage from 'redux-persist/lib/storage';
+// import storage from 'redux-persist/lib/storage';
 import sessionStorage from 'redux-persist/es/storage/session';
 
 const persistConfig = {

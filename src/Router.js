@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PrivateRoute from './routes/PrivateRoute';
 import Nav from './components/Nav/Nav';
 import Home from './pages/home/Home';
 import BoardList from './pages/boardList/BoardList';
@@ -10,7 +11,7 @@ import { useSelector } from 'react-redux';
 
 function Router() {
   const [isAuth, setIsAuth] = useState(false);
-  const token = useSelector(state => state.token);
+  // const token = useSelector(state => state.token);
 
   useEffect(() => {
     if (sessionStorage.token) setIsAuth(true);
@@ -22,7 +23,11 @@ function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/boardlist/*" element={<BoardList />} />
-        <Route path="/addboard/*" element={<AddBoard />} />
+
+        <Route exact path="/" element={<PrivateRoute />}>
+          <Route path="/addboard" element={<AddBoard />} />
+        </Route>
+
         <Route
           path="/signin"
           element={<SignIn isAuth={isAuth} setIsAuth={setIsAuth} />}

@@ -6,6 +6,10 @@ import { Button } from 'antd';
 
 const BoardList = () => {
   const navigation = useNavigate();
+  const [boardlist, setBoardlist] = useState([
+    { id: 1, title: 'aaa', userId: 1, time: '' },
+    { id: 2, title: 'aaa', userId: 2, time: '' },
+  ]);
 
   return (
     <Container>
@@ -14,6 +18,19 @@ const BoardList = () => {
           글쓰기
         </Button>
       </div>
+      {boardlist.map(e => {
+        return (
+          <div className="board-wapper" key={e.id}>
+            <div className="board">
+              <p>{e.title}</p>
+              <span className="text-rigth">
+                <p>{e.userId}</p>
+                <p>{e.time}</p>
+              </span>
+            </div>
+          </div>
+        );
+      })}
     </Container>
   );
 };
@@ -28,6 +45,28 @@ const Container = styled.div`
   font-size: 16px;
 
   .wapper {
+    padding: 15px 0 30px;
     /* border: 1px solid black; */
+  }
+
+  .board-wapper {
+    cursor: Pointer;
+    &:hover {
+      background: aquamarine;
+    }
+  }
+
+  .board {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+
+    p {
+      padding: 10px;
+      border: 1px solid black;
+    }
+    .text-rigth {
+      display: flex;
+    }
   }
 `;
