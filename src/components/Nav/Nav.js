@@ -1,12 +1,16 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
 // import { useSelector } from 'react-redux';
+import { Layout, Menu } from 'antd';
+
 const { Header } = Layout;
 
 const Nav = props => {
   const navigation = useNavigate();
   const ref = useRef();
+
+  // const token = useSelector(state => state.auth.token);
+  // console.log(token);
 
   const logout = () => {
     props.setIsAuth(false);

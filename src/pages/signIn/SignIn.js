@@ -7,7 +7,7 @@ import { authService } from '../../Firebase';
 import { firebaseInstance } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setToken } from '../../redux/auth';
+import { setToken } from '../../redux/modules/auth';
 
 const SignIn = props => {
   const navigation = useNavigate();

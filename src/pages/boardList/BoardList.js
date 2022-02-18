@@ -2,14 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'antd';
+import moment from 'moment';
 
 const BoardList = () => {
   const navigation = useNavigate();
-  const [boardlist, setBoardlist] = useState([
-    { id: 1, title: 'aaa', userId: 1, time: '' },
-    { id: 2, title: 'aaa', userId: 2, time: '' },
-  ]);
+
+  const boardlist = useSelector(state => state.board);
+  const dispatch = useDispatch();
 
   return (
     <Container>
@@ -18,17 +19,17 @@ const BoardList = () => {
           글쓰기
         </Button>
       </div>
-      {boardlist.map(e => {
+      {boardlist.list.map(e => {
         return (
-          <div className="board-wapper" key={e.id}>
-            <div className="board">
-              <p>{e.title}</p>
+          <BoardInner id={e.id} key={e.id}>
+            <BoardItem>
+              <p>제목 : {e.title}</p>
               <span className="text-rigth">
                 <p>{e.userId}</p>
-                <p>{e.time}</p>
+                <p>{moment(e.data).format('YYYY-MM-DD')}</p>
               </span>
-            </div>
-          </div>
+            </BoardItem>
+          </BoardInner>
         );
       })}
     </Container>
@@ -36,6 +37,10 @@ const BoardList = () => {
 };
 
 export default BoardList;
+
+// {todoList.list.map((e, idx) => {
+//   return <Todo key={idx} idx={idx} text={e.text} />;
+// })}
 
 const Container = styled.div`
   width: 100vw;
@@ -46,27 +51,28 @@ const Container = styled.div`
 
   .wapper {
     padding: 15px 0 30px;
-    /* border: 1px solid black; */
   }
+`;
 
-  .board-wapper {
-    cursor: Pointer;
-    &:hover {
-      background: aquamarine;
-    }
+const BoardInner = styled.div`
+  cursor: Pointer;
+
+  &:hover {
+    background: #efefefd9;
+    filter: blur(1px);
   }
+`;
 
-  .board {
+const BoardItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e2e7ed;
+
+  p {
+    margin: 10px;
+    padding: 20px;
+  }
+  .text-rigth {
     display: flex;
-    justify-content: space-between;
-    border: 1px solid black;
-
-    p {
-      padding: 10px;
-      border: 1px solid black;
-    }
-    .text-rigth {
-      display: flex;
-    }
   }
 `;
