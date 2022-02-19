@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Button } from 'antd';
 import moment from 'moment';
 
 const BoardList = () => {
   const navigation = useNavigate();
-
-  const boardlist = useSelector(state => state.board);
-  const dispatch = useDispatch();
+  const boardList = useSelector(state => state.board);
 
   return (
     <Container>
@@ -19,9 +17,9 @@ const BoardList = () => {
           글쓰기
         </Button>
       </div>
-      {boardlist.list.map(e => {
+      {boardList.list.map((e, idx) => {
         return (
-          <BoardInner id={e.id} key={e.id}>
+          <BoardInner key={idx} onClick={() => navigation(`/viewboard/${idx}`)}>
             <BoardItem>
               <p>제목 : {e.title}</p>
               <span className="text-rigth">
@@ -38,14 +36,11 @@ const BoardList = () => {
 
 export default BoardList;
 
-// {todoList.list.map((e, idx) => {
-//   return <Todo key={idx} idx={idx} text={e.text} />;
-// })}
-
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  padding: 100px;
+  padding: 80px;
+  min-width: 600px;
   text-align: center;
   font-size: 16px;
 

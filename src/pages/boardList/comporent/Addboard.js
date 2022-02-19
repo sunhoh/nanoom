@@ -1,19 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { Form, Input, Button } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createList } from '../../../redux/modules/board';
+import { useNavigate } from 'react-router-dom';
 
 const AddBoard = props => {
-  const navigation = useNavigate();
   const inputRef = useRef();
   const dispatch = useDispatch();
-  const list = useSelector(state => state.board);
-
-  console.log(list);
+  const navigation = useNavigate();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -24,16 +21,16 @@ const AddBoard = props => {
     content: Yup.string().required('내용을 입력하세요!'),
   });
 
-  const submit = async values => {
-    console.log(values);
+  const submit = values => {
     const { title, content } = values;
     const newItem = {
       title: title,
       content: content,
-      userId: sessionStorage.getItem('token', JSON.stringify()),
+      userId: sessionStorage.getItem('token'),
+      data: Date.now(),
     };
-    await dispatch(createList(newItem));
-    console.log(sessionStorage.getItem('token', JSON.stringify()));
+    dispatch(createList(newItem));
+    navigation('/boardlist');
   };
 
   return (
