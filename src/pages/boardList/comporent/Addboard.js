@@ -23,13 +23,13 @@ const AddBoard = props => {
 
   const submit = values => {
     const { title, content } = values;
-    const newItem = {
+    const newBoard = {
       title: title,
       content: content,
-      userId: sessionStorage.getItem('token'),
-      data: Date.now(),
+      userId: sessionStorage.getItem(sessionStorage.key('token')),
+      date: Date.now(),
     };
-    dispatch(createList(newItem));
+    dispatch(createList(newBoard));
     navigation('/boardlist');
   };
 

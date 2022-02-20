@@ -12,7 +12,6 @@ import SignUp from './pages/signUp/SignUp';
 
 function Router() {
   const [isAuth, setIsAuth] = useState(false);
-  // const token = useSelector(state => state.token);
 
   useEffect(() => {
     if (sessionStorage.token) setIsAuth(true);
@@ -27,12 +26,10 @@ function Router() {
         <Route exact path="/" element={<PrivateRoute />}>
           <Route path="/addboard" element={<AddBoard />} />
         </Route>
-        {/* --------------------------------------------- */}
         <Route exact path="/" element={<PrivateRoute />}>
-          <Route path="/viewboard" element={<ViewBoard />} />
+          <Route path="/viewboard/:userId" element={<ViewBoard />} />
         </Route>
         {/* --------------------------------------------- */}
-
         <Route path="/boardlist/*" element={<BoardList />} />
         <Route
           path="/signin"

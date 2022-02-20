@@ -19,7 +19,10 @@ const BoardList = () => {
       </div>
       {boardList.list.map((e, idx) => {
         return (
-          <BoardInner key={idx} onClick={() => navigation(`/viewboard/${idx}`)}>
+          <BoardInner
+            key={idx}
+            onClick={() => navigation(`/viewboard/${e.userId}`)}
+          >
             <BoardItem>
               <p>제목 : {e.title}</p>
               <span className="text-rigth">

@@ -4,7 +4,7 @@ const initialState = {
     {
       title: '게시글이다다다',
       userId: 'dldldl',
-      data: Date.now(),
+      // date: Date.now(),
     },
   ],
 };
@@ -13,7 +13,10 @@ const initialState = {
 const CREATE = 'board/CREATE';
 
 // Action Creator & Action
-export const createList = item => ({ type: CREATE, item });
+export const createList = item => ({
+  type: CREATE,
+  item,
+});
 
 // Reducer
 export default function reducer(state = initialState, action) {
@@ -21,9 +24,9 @@ export default function reducer(state = initialState, action) {
     case CREATE:
       const newItem = [
         ...state.list,
-        { title: action.title, userId: action.userId },
+        { title: action.title, userId: action.userId, date: action.date },
       ];
-      return { ...state, list: newItem };
+      return { list: newItem };
     default:
       return state;
   }
