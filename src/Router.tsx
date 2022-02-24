@@ -23,10 +23,10 @@ function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         {/* --------------------PrivateRoute------------- */}
-        <Route exact path="/" element={<PrivateRoute />}>
+        <Route path="/" element={<PrivateRoute />}>
           <Route path="/addboard" element={<AddBoard />} />
         </Route>
-        <Route exact path="/" element={<PrivateRoute />}>
+        <Route path="/" element={<PrivateRoute />}>
           <Route path="/viewboard/:userId" element={<ViewBoard />} />
         </Route>
         {/* --------------------------------------------- */}

@@ -6,9 +6,9 @@ import { Form, Input, Button } from 'antd';
 import { authService } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
 
-const SignUp = props => {
+const SignUp = (props: any) => {
   const navigation = useNavigate();
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -27,7 +27,7 @@ const SignUp = props => {
       .required('패스워드를 다시 입력하세요!'),
   });
 
-  const submit = async values => {
+  const submit = async (values: any) => {
     const { email, password } = values;
     await authService
       .createUserWithEmailAndPassword(email, password)

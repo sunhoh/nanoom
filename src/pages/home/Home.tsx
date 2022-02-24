@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { NullLiteral } from 'typescript';
 
 const TOTAL_SLIDES = 3;
 
 const Home = () => {
   const [current, setCurrent] = useState(0);
-  const slideRef = useRef(null);
+  const slideRef = useRef<HTMLInputElement>(null);
 
   const NextSlide = () => {
     current >= TOTAL_SLIDES - 1 ? setCurrent(0) : setCurrent(current + 1);
